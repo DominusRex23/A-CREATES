@@ -143,55 +143,55 @@ export default function Home() {
                 {
                   title: "Project 1",
                   description: "Brand identity design for a modern tech startup",
-                  images: ["/portfolio/3.png",],
+                  images: ["/PORTFOLIO/3.png"],
                   category: "Branding"
                 },
                 {
                   title: "Project 2",
                   description: "Social media campaign for a lifestyle brand",
-                  images: ["/portfolio/4.png"],
+                  images: ["/PORTFOLIO/4.png"],
                   category: "Social Media"
                 },
                 {
                   title: "Project 3",
                   description: "Packaging design for a premium product line",
-                  images: ["/portfolio/5.png"],
+                  images: ["/PORTFOLIO/5.png"],
                   category: "Graphic Design"
                 },
                 {
                   title: "Project 4",
                   description: "Packaging design for a premium product line",
-                  images: ["/portfolio/6.png"],
+                  images: ["/PORTFOLIO/6.png"],
                   category: "Graphic Design"
                 },
                 {
                   title: "Project 5",
                   description: "Packaging design for a premium product line",
-                  images: ["/portfolio/7.png"],
+                  images: ["/PORTFOLIO/7.png"],
                   category: "Graphic Design"
                 },
                 { 
                   title: "Project 6",
                   description: "Packaging design for a premium product line",
-                  images: ["/portfolio/8.png"],
+                  images: ["/PORTFOLIO/8.png"],
                   category: "Graphic Design"
                 },
                 {
                   title: "Project 7",
                   description: "Packaging design for a premium product line",
-                  images: ["/portfolio/9.png"],
+                  images: ["/PORTFOLIO/9.png"],
                   category: "Graphic Design"
                 },
                 {
                   title: "Project 8",
                   description: "Packaging design for a premium product line",
-                  images: ["/portfolio/10.png"],
+                  images: ["/PORTFOLIO/10.png"],
                   category: "Graphic Design"
                 },
                 {
                   title: "Project 9",
                   description: "Packaging design for a premium product line",
-                  images: ["/portfolio/11.png"],
+                  images: ["/PORTFOLIO/11.png"],
                   category: "Graphic Design"
                 },
                 
