@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import useEmblaCarousel from 'embla-carousel-react';
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback,} from 'react';
 
 interface Project {
   title: string;
