@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['var(--font-dm-sans)'],
+      },
       fontSize: {
         '10xl': '10rem',    // 160px
         '11xl': '12rem',    // 192px
@@ -20,22 +23,13 @@ const config: Config = {
       },
       backgroundImage: {
         'gradient-custom': 'linear-gradient(to right, #0d5080, #402563, #c440b5)',
-      },
-    },
-  },
-  plugins: [],
-}
-
-// tailwind.config.js
-module.exports = {
-  theme: {
-    extend: {
-      backgroundImage: {
         'gradient-rainbow': 'linear-gradient(to right, #0d5080, #402563, #c440b5)',
       },
     },
   },
-};
-
+  plugins: [
+    require('@tailwindcss/aspect-ratio'),
+  ],
+}
 
 export default config 

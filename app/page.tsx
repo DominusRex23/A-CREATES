@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import useEmblaCarousel from 'embla-carousel-react';
 import { useState, useCallback,} from 'react';
+import type { EmblaCarouselType } from 'embla-carousel';
 
 interface Project {
   title: string;
@@ -17,11 +18,11 @@ export default function Home() {
   const [portfolioEmblaRef, portfolioEmblaApi] = useEmblaCarousel();
   const [pricingEmblaRef, pricingEmblaApi] = useEmblaCarousel();
 
-  const scrollPrev = useCallback((api: any) => {
+  const scrollPrev = useCallback((api: EmblaCarouselType | undefined) => {
     if (api) api.scrollPrev();
   }, []);
 
-  const scrollNext = useCallback((api: any) => {
+  const scrollNext = useCallback((api: EmblaCarouselType | undefined) => {
     if (api) api.scrollNext();
   }, []);
 
@@ -55,7 +56,7 @@ export default function Home() {
             priority
           />
         </div>
-        <h1 className="text-5xl sm:text-8xl md:text-10xl mb-4 font-light">A CREATES</h1>
+        <h1 className="text-3xl sm:text-5xl md:text-8xl mb-4 font-light">A CREATES</h1>
         <p className="text-lg sm:text-xl md:text-2xl mb-8 text-center font-bold px-4">
           Helping brands shine through bold design & creative storytelling ✨
         </p>
@@ -84,7 +85,7 @@ export default function Home() {
 
       </section>
 
-      <hr className="border-white w-300 mx-auto" />
+      <hr className="border-white max-w-6xl mx-auto" />
 
       {/* About */}
       <section id="about" className="py-12 sm:py-20 px-4 sm:px-6 max-w-6xl mx-auto">
@@ -108,7 +109,7 @@ export default function Home() {
         </div>
       </section>
 
-      <hr className="border-white w-300 mx-auto" />
+      <hr className="border-white max-w-6xl mx-auto" />
 
       {/* Services */}
       <section id="services" className="py-12 sm:py-20 px-4 sm:px-6">
@@ -127,7 +128,7 @@ export default function Home() {
         </div>
       </section>
 
-      <hr className="border-white w-300 mx-auto" />
+      <hr className="border-white max-w-6xl mx-auto" />
 
       
 
@@ -142,7 +143,7 @@ export default function Home() {
                 {
                   title: "Project 1",
                   description: "Brand identity design for a modern tech startup",
-                  images: ["/portfolio/3.png"],
+                  images: ["/portfolio/3.png",],
                   category: "Branding"
                 },
                 {
@@ -169,7 +170,7 @@ export default function Home() {
                   images: ["/portfolio/7.png"],
                   category: "Graphic Design"
                 },
-                {
+                { 
                   title: "Project 6",
                   description: "Packaging design for a premium product line",
                   images: ["/portfolio/8.png"],
@@ -192,30 +193,34 @@ export default function Home() {
                   description: "Packaging design for a premium product line",
                   images: ["/portfolio/11.png"],
                   category: "Graphic Design"
-                }
+                },
+                
               ].map((project, index) => (
                 <div key={index} className="flex-[0_0_100%] min-w-0 relative">
-                  <div className="bg-[#faf9f3] p-4 rounded-lg shadow-md max-w-2xl mx-auto">
-                    <div className="aspect-w-16 aspect-h-9 mb-3">
+                  <div className="bg-white p-8 rounded-xl shadow-md max-w-3xl mx-auto">
+                    <div className="aspect-w-16 aspect-h-12 mb-6 relative">
                       <Image
                         src={project.images[0]}
                         alt={project.title}
                         width={800}
-                        height={450}
-                        className="rounded-lg object-cover w-full h-full"
+                        height={600}
+                        className="rounded-lg object-contain w-full h-full"
+                        style={{ objectPosition: 'center' }}
                       />
                     </div>
-                    <h3 className="text-lg font-semibold mb-2 text-black">{project.title}</h3>
-                    <p className="text-sm text-gray-600 mb-2">{project.description}</p>
-                    <span className="inline-block bg-gray-100 text-gray-800 px-2 py-1 rounded-full text-sm">
-                      {project.category}
-                    </span>
-                    <button 
-                      onClick={() => setSelectedProject(project)}
-                      className="mt-3 w-full bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition text-sm"
-                    >
-                      View Project
-                    </button>
+                    <h3 className="text-2xl font-semibold mb-3 text-black">{project.title}</h3>
+                    <p className="text-gray-600 mb-4 text-lg">{project.description}</p>
+                    <div className="flex items-center justify-between">
+                      <span className="inline-block bg-gray-100 text-gray-800 px-4 py-2 rounded-full text-sm">
+                        {project.category}
+                      </span>
+                      <button 
+                        onClick={() => setSelectedProject(project)}
+                        className="bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition"
+                      >
+                        View Project
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -262,13 +267,14 @@ export default function Home() {
 
                 {/* Main Image Viewer */}
                 <div className="relative mb-4">
-                  <div className="aspect-w-16 aspect-h-9 relative">
+                  <div className="aspect-w-16 aspect-h-12 relative">
                     <Image
                       src={selectedProject.images[selectedImageIndex]}
                       alt={`${selectedProject.title} - Image ${selectedImageIndex + 1}`}
                       width={1200}
-                      height={675}
-                      className="rounded-lg object-contain w-full h-full"
+                      height={900}
+                      className="rounded-lg object-contain w-full h-full bg-gray-50"
+                      style={{ objectPosition: 'center' }}
                     />
                   </div>
                   
@@ -292,20 +298,20 @@ export default function Home() {
                 </div>
 
                 {/* Thumbnail Gallery */}
-                <div className="flex gap-2 overflow-x-auto pb-4 mb-4">
+                <div className="flex gap-3 overflow-x-auto pb-4 mb-4">
                   {selectedProject.images.map((image, index) => (
                     <button
                       key={index}
                       onClick={() => setSelectedImageIndex(index)}
-                      className={`relative flex-shrink-0 w-24 h-24 rounded-lg overflow-hidden ${
+                      className={`relative flex-shrink-0 w-32 h-32 rounded-lg overflow-hidden ${
                         selectedImageIndex === index ? 'ring-2 ring-black' : ''
                       }`}
                     >
                       <Image
                         src={image}
                         alt={`Thumbnail ${index + 1}`}
-                        width={96}
-                        height={96}
+                        width={128}
+                        height={128}
                         className="object-cover w-full h-full"
                       />
                     </button>
@@ -322,7 +328,7 @@ export default function Home() {
         )}
       </section>
 
-      <hr className="border-white w-300 mx-auto" />
+      <hr className="border-white max-w-6xl mx-auto my-8" />
 
       {/* Pricing Section */}
       <section id="pricing" className="py-12 sm:py-20 px-4 sm:px-6">
@@ -568,7 +574,7 @@ export default function Home() {
         </div>
       </section>
 
-      <hr className="border-white w-300 mx-auto" />
+      <hr className="border-white max-w-6xl mx-auto" />
 
       {/* Contact */}
       <section id="contact" className="py-12 sm:py-20 px-4 sm:px-6 max-w-3xl mx-auto text-center">
