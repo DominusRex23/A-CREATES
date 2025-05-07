@@ -26,4 +26,16 @@ const config: Config = {
   plugins: [],
 }
 
+// tailwind.config.js
+module.exports = {
+  theme: {
+    extend: {
+      backgroundImage: {
+        'gradient-rainbow': 'linear-gradient(to right, #0d5080, #402563, #c440b5)',
+      },
+    },
+  },
+};
+
+
 export default config 

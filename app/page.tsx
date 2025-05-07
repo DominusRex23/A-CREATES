@@ -14,15 +14,16 @@ interface Project {
 export default function Home() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-  const [emblaRef, emblaApi] = useEmblaCarousel();
+  const [portfolioEmblaRef, portfolioEmblaApi] = useEmblaCarousel();
+  const [pricingEmblaRef, pricingEmblaApi] = useEmblaCarousel();
 
-  const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
-  }, [emblaApi]);
+  const scrollPrev = useCallback((api: any) => {
+    if (api) api.scrollPrev();
+  }, []);
 
-  const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext();
-  }, [emblaApi]);
+  const scrollNext = useCallback((api: any) => {
+    if (api) api.scrollNext();
+  }, []);
 
   const nextImage = useCallback(() => {
     if (selectedProject) {
@@ -58,16 +59,29 @@ export default function Home() {
         <p className="text-lg sm:text-xl md:text-2xl mb-8 text-center font-bold px-4">
           Helping brands shine through bold design & creative storytelling ✨
         </p>
-        <a href="#services" className="text-white px-6 sm:px-8 py-2 sm:py-1 rounded-full hover:opacity-90 transition relative sm:-bottom-10 flex items-center justify-center gap-2" style={{background: 'linear-gradient(to right, #0d5080, #402563, #c440b5)'}}>
-          Explore Services
-          <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="relative -right-2">
-            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-            <g id="SVGRepo_iconCarrier"> 
-              <path d="M12 5V19M12 19L6 13M12 19L18 13" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> 
-            </g>
-          </svg>
-        </a>
+        <a
+  href="#services"
+  className="group text-black px-6 sm:px-8 py-2 sm:py-1 rounded-full transition-all duration-500 relative sm:-bottom-10 flex items-center justify-center gap-2 bg-white hover:bg-gradient-to-r hover:from-[#0d5080] hover:via-[#402563] hover:to-[#c440b5] hover:text-white hover:opacity-90 hover:shadow-lg hover:scale-[1.02]"
+>
+  Explore Services
+  <svg
+    width="20px"
+    height="20px"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className="relative -right-2 transition-transform duration-300 group-hover:translate-x-1"
+  >
+    <path
+      d="M12 5V19M12 19L6 13M12 19L18 13"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+</a>
+
       </section>
 
       <hr className="border-white w-300 mx-auto" />
@@ -122,31 +136,67 @@ export default function Home() {
         <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-center">Portfolio</h2>
         
         <div className="relative">
-          <div className="overflow-hidden" ref={emblaRef}>
+          <div className="overflow-hidden" ref={portfolioEmblaRef}>
             <div className="flex">
               {[
                 {
                   title: "Project 1",
                   description: "Brand identity design for a modern tech startup",
-                  images: ["/portfolio/project1-1.jpg", "/portfolio/project1-2.jpg"],
+                  images: ["/portfolio/3.png"],
                   category: "Branding"
                 },
                 {
                   title: "Project 2",
                   description: "Social media campaign for a lifestyle brand",
-                  images: ["/portfolio/project2-1.jpg", "/portfolio/project2-2.jpg"],
+                  images: ["/portfolio/4.png"],
                   category: "Social Media"
                 },
                 {
                   title: "Project 3",
                   description: "Packaging design for a premium product line",
-                  images: ["/portfolio/project3-1.jpg", "/portfolio/project3-2.jpg"],
+                  images: ["/portfolio/5.png"],
+                  category: "Graphic Design"
+                },
+                {
+                  title: "Project 4",
+                  description: "Packaging design for a premium product line",
+                  images: ["/portfolio/6.png"],
+                  category: "Graphic Design"
+                },
+                {
+                  title: "Project 5",
+                  description: "Packaging design for a premium product line",
+                  images: ["/portfolio/7.png"],
+                  category: "Graphic Design"
+                },
+                {
+                  title: "Project 6",
+                  description: "Packaging design for a premium product line",
+                  images: ["/portfolio/8.png"],
+                  category: "Graphic Design"
+                },
+                {
+                  title: "Project 7",
+                  description: "Packaging design for a premium product line",
+                  images: ["/portfolio/9.png"],
+                  category: "Graphic Design"
+                },
+                {
+                  title: "Project 8",
+                  description: "Packaging design for a premium product line",
+                  images: ["/portfolio/10.png"],
+                  category: "Graphic Design"
+                },
+                {
+                  title: "Project 9",
+                  description: "Packaging design for a premium product line",
+                  images: ["/portfolio/11.png"],
                   category: "Graphic Design"
                 }
               ].map((project, index) => (
                 <div key={index} className="flex-[0_0_100%] min-w-0 relative">
-                  <div className="bg-white p-6 rounded-xl shadow-md mx-4">
-                    <div className="aspect-w-16 aspect-h-9 mb-4">
+                  <div className="bg-[#faf9f3] p-4 rounded-lg shadow-md max-w-2xl mx-auto">
+                    <div className="aspect-w-16 aspect-h-9 mb-3">
                       <Image
                         src={project.images[0]}
                         alt={project.title}
@@ -155,14 +205,14 @@ export default function Home() {
                         className="rounded-lg object-cover w-full h-full"
                       />
                     </div>
-                    <h3 className="text-xl font-semibold mb-2 text-black">{project.title}</h3>
-                    <p className="text-gray-600 mb-2">{project.description}</p>
-                    <span className="inline-block bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm">
+                    <h3 className="text-lg font-semibold mb-2 text-black">{project.title}</h3>
+                    <p className="text-sm text-gray-600 mb-2">{project.description}</p>
+                    <span className="inline-block bg-gray-100 text-gray-800 px-2 py-1 rounded-full text-sm">
                       {project.category}
                     </span>
                     <button 
                       onClick={() => setSelectedProject(project)}
-                      className="mt-4 w-full bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition"
+                      className="mt-3 w-full bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition text-sm"
                     >
                       View Project
                     </button>
@@ -173,16 +223,16 @@ export default function Home() {
           </div>
           
           <button 
-            className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-lg hover:bg-white transition"
-            onClick={scrollPrev}
+            className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-lg hover:bg-white transition z-10"
+            onClick={() => scrollPrev(portfolioEmblaApi)}
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M15 18L9 12L15 6" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </button>
           <button 
-            className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-lg hover:bg-white transition"
-            onClick={scrollNext}
+            className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-lg hover:bg-white transition z-10"
+            onClick={() => scrollNext(portfolioEmblaApi)}
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M9 6L15 12L9 18" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -350,7 +400,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <h3 className="text-xl sm:text-2xl font-semibold mb-8 text-center">Social Media Marketing Packages</h3>
           <div className="relative">
-            <div className="overflow-hidden" ref={emblaRef}>
+            <div className="overflow-hidden" ref={pricingEmblaRef}>
               <div className="flex">
                 {/* First slide - 2x1 layout */}
                 <div className="flex-[0_0_100%] min-w-0">
@@ -500,7 +550,7 @@ export default function Home() {
             
             <button 
               className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-lg hover:bg-white transition"
-              onClick={scrollPrev}
+              onClick={() => scrollPrev(pricingEmblaApi)}
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M15 18L9 12L15 6" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -508,7 +558,7 @@ export default function Home() {
             </button>
             <button 
               className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-lg hover:bg-white transition"
-              onClick={scrollNext}
+              onClick={() => scrollNext(pricingEmblaApi)}
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M9 6L15 12L9 18" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
