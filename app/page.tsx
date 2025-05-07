@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import useEmblaCarousel from 'embla-carousel-react';
-import { useState, useCallback,} from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import type { EmblaCarouselType } from 'embla-carousel';
 
 interface Project {
@@ -17,6 +17,8 @@ export default function Home() {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [portfolioEmblaRef, portfolioEmblaApi] = useEmblaCarousel();
   const [pricingEmblaRef, pricingEmblaApi] = useEmblaCarousel();
+  const [activeSection, setActiveSection] = useState('home');
+  const [showNav, setShowNav] = useState(false);
 
   const scrollPrev = useCallback((api: EmblaCarouselType | undefined) => {
     if (api) api.scrollPrev();
@@ -42,10 +44,87 @@ export default function Home() {
     }
   }, [selectedProject]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['home', 'about', 'services', 'portfolio', 'pricing', 'contact'];
+      const scrollPosition = window.scrollY + 100;
+      const homeSection = document.getElementById('home');
+      
+      // Show nav when scrolled past home section
+      if (homeSection) {
+        const homeHeight = homeSection.offsetHeight;
+        setShowNav(scrollPosition > homeHeight * 0.8);
+      }
+
+      // Update active section
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <main className="min-h-screen scroll-smooth text-white overflow-x-hidden">
+      {/* Sticky Navigation */}
+      <nav className={`fixed top-0 left-0 right-0 z-50 bg-black/50 backdrop-blur-md border-b border-white/10 transition-all duration-300 ${
+        showNav ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full'
+      }`}>
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="flex items-center justify-between h-16">
+            <div className="flex items-center">
+              <Image
+                src="/logo 2.png"
+                alt="A Creates Logo"
+                width={90}
+                height={90}
+                className="w-100 h-100"
+              />
+            </div>
+            <div className="flex space-x-1">
+              {[
+                { id: 'home', label: 'Home' },
+                { id: 'about', label: 'About' },
+                { id: 'services', label: 'Services' },
+                { id: 'portfolio', label: 'Portfolio' },
+                { id: 'pricing', label: 'Pricing' },
+                { id: 'contact', label: 'Contact' }
+              ].map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`px-4 py-2 rounded-full text-sm transition-all duration-300 ${
+                    activeSection === item.id
+                      ? 'bg-white text-black'
+                      : 'text-white hover:bg-white/10'
+                  }`}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </nav>
+
       {/* Hero */}
-      <section className="min-h-screen flex flex-col items-center justify-center text-center px-4 py-12 sm:py-0 w-full">
+      <section id="home" className="min-h-screen flex flex-col items-center justify-center text-center px-4 py-12 sm:py-0 w-full">
         <div className="mb-6 sm:mb-10 relative sm:-top-10 w-full animate-fade-in">
           <Image
             src="/logo 2.png"
@@ -58,7 +137,7 @@ export default function Home() {
         </div>
         <h1 className="text-3xl sm:text-5xl md:text-8xl mb-4 font-light animate-slide-up">A CREATES</h1>
         <p className="text-lg sm:text-xl md:text-2xl mb-8 text-center font-bold px-4 animate-slide-up-delay">
-          <span className="sparkle-text">Helping brands shine through bold design & creative storytelling</span>
+          Helping brands shine through bold design & creative storytelling <span className="sparkle-text"></span>
         </p>
         <a
           href="#services"
@@ -412,7 +491,7 @@ export default function Home() {
               <div className="flex">
                 {/* First slide - 2x1 layout */}
                 <div className="flex-[0_0_100%] min-w-0">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto pt-4">
                     {[
                       {
                         name: "Starter",
@@ -440,7 +519,7 @@ export default function Home() {
                     ].map((pkg, index) => (
                       <div 
                         key={index}
-                        className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:border-white/40 transition-all duration-500 transform hover:scale-105 hover:shadow-xl h-full"
+                        className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:border-white/40 transition-all duration-500 hover:shadow-xl h-full relative hover:-translate-y-1"
                       >
                         <h4 className="text-xl font-bold mb-2">{pkg.name}</h4>
                         <p className="text-3xl font-extrabold mb-4">{pkg.price}</p>
@@ -454,14 +533,14 @@ export default function Home() {
                             </li>
                           ))}
                         </ul>
-                        <button className="w-full mt-6 bg-white text-black px-6 py-3 rounded-full transition-all duration-300 hover:bg-gray-800 hover:text-white hover:scale-105">
+                        <button className="w-full mt-6 bg-white text-black px-6 py-3 rounded-full transition-all duration-300 hover:bg-gray-800 hover:text-white">
                           Get Started
                         </button>
                       </div>
                     ))}
                   </div>
-                  <div className="max-w-4xl mx-auto mt-6">
-                    <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:border-white/40 transition">
+                  <div className="max-w-4xl mx-auto mt-6 pt-4">
+                    <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:border-white/40 transition-all duration-500 hover:shadow-xl relative hover:-translate-y-1">
                       <h4 className="text-xl font-bold mb-2">Standard</h4>
                       <p className="text-3xl font-extrabold mb-4">₱8,999</p>
                       <ul className="space-y-3">
@@ -482,7 +561,7 @@ export default function Home() {
                           </li>
                         ))}
                       </ul>
-                      <button className="w-full mt-6 bg-white text-black px-6 py-3 rounded-full hover:bg-gray-800 hover:text-white transition">
+                      <button className="w-full mt-6 bg-white text-black px-6 py-3 rounded-full transition-all duration-300 hover:bg-gray-800 hover:text-white">
                         Get Started
                       </button>
                     </div>
@@ -491,7 +570,7 @@ export default function Home() {
 
                 {/* Second slide - 1x1 layout */}
                 <div className="flex-[0_0_100%] min-w-0">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto px-4 py-4">
                     {[
                       {
                         name: "Pro",
@@ -532,21 +611,23 @@ export default function Home() {
                     ].map((pkg, index) => (
                       <div 
                         key={index}
-                        className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:border-white/40 transition-all duration-500 transform hover:scale-105 hover:shadow-xl h-full"
+                        className="bg-white/10 backdrop-blur-md rounded-xl p-8 border border-white/20 hover:border-white/40 transition-all duration-500 hover:shadow-xl h-full flex flex-col justify-between relative hover:-translate-y-1"
                       >
-                        <h4 className="text-xl font-bold mb-2">{pkg.name}</h4>
-                        <p className="text-3xl font-extrabold mb-4">{pkg.price}</p>
-                        <ul className="space-y-3">
-                          {pkg.features.map((feature, i) => (
-                            <li key={i} className="flex items-center gap-2">
-                              <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                              </svg>
-                              <span className={feature.includes("FREE:") ? "font-bold" : ""}>{feature}</span>
-                            </li>
-                          ))}
-                        </ul>
-                        <button className="w-full mt-6 bg-white text-black px-6 py-3 rounded-full transition-all duration-300 hover:bg-gray-800 hover:text-white hover:scale-105">
+                        <div>
+                          <h4 className="text-2xl font-bold mb-3">{pkg.name}</h4>
+                          <p className="text-4xl font-extrabold mb-6">{pkg.price}</p>
+                          <ul className="space-y-4">
+                            {pkg.features.map((feature, i) => (
+                              <li key={i} className="flex items-center gap-3">
+                                <svg className="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span className={`text-lg ${feature.includes("FREE:") ? "font-bold" : ""}`}>{feature}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <button className="w-full mt-8 bg-white text-black px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 hover:bg-gray-800 hover:text-white">
                           Get Started
                         </button>
                       </div>
