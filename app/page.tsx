@@ -46,43 +46,42 @@ export default function Home() {
     <main className="min-h-screen scroll-smooth text-white overflow-x-hidden">
       {/* Hero */}
       <section className="min-h-screen flex flex-col items-center justify-center text-center px-4 py-12 sm:py-0 w-full">
-        <div className="mb-6 sm:mb-10 relative sm:-top-10 w-full">
+        <div className="mb-6 sm:mb-10 relative sm:-top-10 w-full animate-fade-in">
           <Image
             src="/logo 2.png"
             alt="A Creates Logo"
             width={350}
             height={350}
-            className="mx-auto w-[250px] sm:w-[350px]"
+            className="mx-auto w-[250px] sm:w-[350px] transition-transform duration-700 hover:scale-105"
             priority
           />
         </div>
-        <h1 className="text-3xl sm:text-5xl md:text-8xl mb-4 font-light">A CREATES</h1>
-        <p className="text-lg sm:text-xl md:text-2xl mb-8 text-center font-bold px-4">
-          Helping brands shine through bold design & creative storytelling ✨
+        <h1 className="text-3xl sm:text-5xl md:text-8xl mb-4 font-light animate-slide-up">A CREATES</h1>
+        <p className="text-lg sm:text-xl md:text-2xl mb-8 text-center font-bold px-4 animate-slide-up-delay">
+          <span className="sparkle-text">Helping brands shine through bold design & creative storytelling</span>
         </p>
         <a
-  href="#services"
-  className="group text-black px-6 sm:px-8 py-2 sm:py-1 rounded-full transition-all duration-500 relative sm:-bottom-10 flex items-center justify-center gap-2 bg-white hover:bg-gradient-to-r hover:from-[#0d5080] hover:via-[#402563] hover:to-[#c440b5] hover:text-white hover:opacity-90 hover:shadow-lg hover:scale-[1.02]"
->
-  Explore Services
-  <svg
-    width="20px"
-    height="20px"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className="relative -right-2 transition-transform duration-300 group-hover:translate-x-1"
-  >
-    <path
-      d="M12 5V19M12 19L6 13M12 19L18 13"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-</a>
-
+          href="#services"
+          className="group text-black px-6 sm:px-8 py-2 sm:py-1 rounded-full transition-all duration-500 relative sm:-bottom-10 flex items-center justify-center gap-2 bg-white hover:bg-gradient-to-r hover:from-[#0d5080] hover:via-[#402563] hover:to-[#c440b5] hover:text-white hover:opacity-90 hover:shadow-lg hover:scale-[1.02] animate-fade-in-delay"
+        >
+          Explore Services
+          <svg
+            width="20px"
+            height="20px"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="relative -right-2 transition-transform duration-300 group-hover:translate-x-1"
+          >
+            <path
+              d="M12 5V19M12 19L6 13M12 19L18 13"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </a>
       </section>
 
       <hr className="border-white max-w-6xl mx-auto" />
@@ -90,7 +89,7 @@ export default function Home() {
       {/* About */}
       <section id="about" className="py-12 sm:py-20 px-4 sm:px-6 max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="text-center md:text-left">
+          <div className="text-center md:text-left transform transition-all duration-700 hover:translate-x-2">
             <h3 className="text-2xl font-semibold mb-4">About the Creator</h3>
             <p className="text-base sm:text-lg">
               A passionate designer with a keen eye for detail and a love for creative storytelling.
@@ -98,7 +97,7 @@ export default function Home() {
               helping brands find their authentic voice through thoughtful design.
             </p>
           </div>
-          <div className="text-center md:text-left">
+          <div className="text-center md:text-left transform transition-all duration-700 hover:-translate-x-2">
             <h3 className="text-2xl font-semibold mb-4">About A Creates</h3>
             <p className="text-base sm:text-lg">
               A Creates is a freelance studio that focuses on helping brands find their voice visually
@@ -113,14 +112,17 @@ export default function Home() {
 
       {/* Services */}
       <section id="services" className="py-12 sm:py-20 px-4 sm:px-6">
-        <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-center">Services</h2>
+        <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-center animate-fade-in">Services</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
           {[
             { title: "Branding", desc: "Logos, brand kits, visual identity" },
             { title: "Graphic Design", desc: "Posters, packaging, prints, more" },
             { title: "Social Media", desc: "Content creation and layout design" },
           ].map((service, i) => (
-            <div key={i} className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
+            <div 
+              key={i} 
+              className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-500 transform hover:-translate-y-2 hover:bg-gradient-to-br hover:from-white hover:to-gray-50"
+            >
               <h3 className="text-xl font-semibold mb-2 text-black">{service.title}</h3>
               <p className="text-gray-600">{service.desc}</p>
             </div>
@@ -134,7 +136,7 @@ export default function Home() {
 
       {/* Portfolio */}
       <section id="portfolio" className="py-12 sm:py-20 px-4 sm:px-6 max-w-6xl mx-auto">
-        <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-center">Portfolio</h2>
+        <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-center animate-fade-in">Portfolio</h2>
         
         <div className="relative">
           <div className="overflow-hidden" ref={portfolioEmblaRef}>
@@ -197,26 +199,26 @@ export default function Home() {
                 
               ].map((project, index) => (
                 <div key={index} className="flex-[0_0_100%] min-w-0 relative">
-                  <div className="bg-white p-8 rounded-xl shadow-md max-w-3xl mx-auto">
-                    <div className="aspect-w-16 aspect-h-12 mb-6 relative">
+                  <div className="bg-white p-8 rounded-xl shadow-md max-w-3xl mx-auto transform transition-all duration-500 hover:shadow-xl hover:-translate-y-1">
+                    <div className="aspect-w-16 aspect-h-12 mb-6 relative overflow-hidden rounded-lg">
                       <Image
                         src={project.images[0]}
                         alt={project.title}
                         width={800}
                         height={600}
-                        className="rounded-lg object-contain w-full h-full"
+                        className="rounded-lg object-contain w-full h-full transition-transform duration-700 hover:scale-105"
                         style={{ objectPosition: 'center' }}
                       />
                     </div>
-                    <h3 className="text-2xl font-semibold mb-3 text-black">{project.title}</h3>
+                    <h3 className="text-2xl font-semibold mb-3 text-black transition-colors duration-300">{project.title}</h3>
                     <p className="text-gray-600 mb-4 text-lg">{project.description}</p>
                     <div className="flex items-center justify-between">
-                      <span className="inline-block bg-gray-100 text-gray-800 px-4 py-2 rounded-full text-sm">
+                      <span className="inline-block bg-gray-100 text-gray-800 px-4 py-2 rounded-full text-sm transition-colors duration-300 hover:bg-gray-200">
                         {project.category}
                       </span>
                       <button 
                         onClick={() => setSelectedProject(project)}
-                        className="bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition"
+                        className="bg-black text-white px-6 py-3 rounded-lg transition-all duration-300 hover:bg-gray-800 hover:scale-105"
                       >
                         View Project
                       </button>
@@ -228,7 +230,7 @@ export default function Home() {
           </div>
           
           <button 
-            className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-lg hover:bg-white transition z-10"
+            className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-lg hover:bg-white transition-all duration-300 hover:scale-110 z-10"
             onClick={() => scrollPrev(portfolioEmblaApi)}
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -236,7 +238,7 @@ export default function Home() {
             </svg>
           </button>
           <button 
-            className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-lg hover:bg-white transition z-10"
+            className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-lg hover:bg-white transition-all duration-300 hover:scale-110 z-10"
             onClick={() => scrollNext(portfolioEmblaApi)}
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -247,8 +249,8 @@ export default function Home() {
 
         {/* Project Modal */}
         {selectedProject && (
-          <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-xl max-w-6xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4 animate-fade-in">
+            <div className="bg-white rounded-xl max-w-6xl w-full max-h-[90vh] overflow-y-auto transform transition-all duration-500 animate-slide-up">
               <div className="p-6">
                 <div className="flex justify-between items-start mb-4">
                   <h3 className="text-2xl font-bold text-black">{selectedProject.title}</h3>
@@ -380,7 +382,7 @@ export default function Home() {
             ].map((pkg, index) => (
               <div 
                 key={index}
-                className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:border-white/40 transition h-full"
+                className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:border-white/40 transition-all duration-500 transform hover:scale-105 hover:shadow-xl h-full"
               >
                 <h4 className="text-xl font-bold mb-2">{pkg.name}</h4>
                 <p className="text-3xl font-bold mb-4">{pkg.price}</p>
@@ -394,7 +396,7 @@ export default function Home() {
                     </li>
                   ))}
                 </ul>
-                <button className="w-full mt-6 bg-white text-black px-6 py-3 rounded-full hover:bg-gray-800 hover:text-white transition">
+                <button className="w-full mt-6 bg-white text-black px-6 py-3 rounded-full transition-all duration-300 hover:bg-gray-800 hover:text-white hover:scale-105">
                   Get Started
                 </button>
               </div>
@@ -438,7 +440,7 @@ export default function Home() {
                     ].map((pkg, index) => (
                       <div 
                         key={index}
-                        className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:border-white/40 transition h-full"
+                        className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:border-white/40 transition-all duration-500 transform hover:scale-105 hover:shadow-xl h-full"
                       >
                         <h4 className="text-xl font-bold mb-2">{pkg.name}</h4>
                         <p className="text-3xl font-extrabold mb-4">{pkg.price}</p>
@@ -452,7 +454,7 @@ export default function Home() {
                             </li>
                           ))}
                         </ul>
-                        <button className="w-full mt-6 bg-white text-black px-6 py-3 rounded-full hover:bg-gray-800 hover:text-white transition">
+                        <button className="w-full mt-6 bg-white text-black px-6 py-3 rounded-full transition-all duration-300 hover:bg-gray-800 hover:text-white hover:scale-105">
                           Get Started
                         </button>
                       </div>
@@ -530,7 +532,7 @@ export default function Home() {
                     ].map((pkg, index) => (
                       <div 
                         key={index}
-                        className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:border-white/40 transition h-full"
+                        className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:border-white/40 transition-all duration-500 transform hover:scale-105 hover:shadow-xl h-full"
                       >
                         <h4 className="text-xl font-bold mb-2">{pkg.name}</h4>
                         <p className="text-3xl font-extrabold mb-4">{pkg.price}</p>
@@ -544,7 +546,7 @@ export default function Home() {
                             </li>
                           ))}
                         </ul>
-                        <button className="w-full mt-6 bg-white text-black px-6 py-3 rounded-full hover:bg-gray-800 hover:text-white transition">
+                        <button className="w-full mt-6 bg-white text-black px-6 py-3 rounded-full transition-all duration-300 hover:bg-gray-800 hover:text-white hover:scale-105">
                           Get Started
                         </button>
                       </div>
@@ -578,9 +580,12 @@ export default function Home() {
 
       {/* Contact */}
       <section id="contact" className="py-12 sm:py-20 px-4 sm:px-6 max-w-3xl mx-auto text-center">
-        <h2 className="text-2xl sm:text-3xl font-bold mb-4">Let's Collaborate!</h2>
-        <p className="mb-6 text-base sm:text-lg">Slide into the inbox 😘 → <strong>acreates@studio.com</strong></p>
-        <a href="mailto:acreates@studio.com" className="inline-block bg-white text-black px-6 py-3 rounded-full hover:bg-gray-800 transition">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-4 animate-fade-in">Let's Collaborate!</h2>
+        <p className="mb-6 text-base sm:text-lg animate-fade-in-delay">Slide into the inbox 😘 → <strong>acreates@studio.com</strong></p>
+        <a 
+          href="mailto:acreates@studio.com" 
+          className="inline-block bg-white text-black px-6 py-3 rounded-full transition-all duration-500 hover:bg-gray-800 hover:text-white hover:scale-105 hover:shadow-lg animate-fade-in-delay-2"
+        >
           Say Hello 👋
         </a>
       </section>
